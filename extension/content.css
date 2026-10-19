@@ -1,0 +1,250 @@
+html[data-ae-theme] {
+  --ae-bg: #ffffff;
+  --ae-text: #202b37;
+  --ae-muted: #576574;
+  --ae-border: #dbe1e7;
+  --ae-count-bg: #edf1f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-ae-theme="system"] {
+    --ae-bg: #202a36;
+    --ae-text: #edf3f9;
+    --ae-muted: #c0ccd9;
+    --ae-border: #475566;
+    --ae-count-bg: #344253;
+  }
+}
+
+.window-bangumi-item .ae-name,
+.window-bangumi-item .ae-count {
+  display: none;
+}
+
+html[data-ae-display] .window-bangumis-box[data-ae-replaced="true"],
+html[data-ae-display] .window-bangumis-box[data-ae-region="true"][hidden] {
+  display: none !important;
+}
+
+html[data-ae-display] .ae-region-clear {
+  pointer-events: auto;
+  cursor: pointer;
+  margin: 4px 0 0 3px;
+  padding: 4px 10px;
+  border: 1px solid var(--ae-border);
+  border-radius: 7px;
+  background: var(--ae-bg);
+  color: var(--ae-text);
+  font: 12px/20px system-ui, sans-serif;
+}
+
+html[data-ae-display] .window-bangumis-box .ae-scroller {
+  width: fit-content;
+  max-width: var(--ae-available-width, calc(100vw - 364px));
+  pointer-events: auto;
+}
+
+html[data-ae-display] .window-bangumis-box .ae-scroller[data-overflow="true"] {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 30px;
+  align-items: start;
+  gap: 6px;
+  width: var(--ae-available-width, calc(100vw - 364px));
+}
+
+html[data-ae-display] .window-bangumis-box .ae-scroller[data-overflow="true"] .window-bangumi-list {
+  width: 100%;
+  max-width: 100%;
+  /* macOS overlay scrollbars paint inside the scrollport. Keep their entire
+     track below the cards, including space around the colored image borders. */
+  padding-bottom: 20px;
+}
+
+html[data-ae-display] .window-bangumis-box .ae-scroll-button:not([hidden]) {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 34px;
+  margin: 8px 0 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--ae-border);
+  border-radius: 7px;
+  background: var(--ae-bg);
+  color: var(--ae-text);
+  box-shadow: 0 2px 6px #12243a12;
+  font: 26px/1 system-ui, sans-serif;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+html[data-ae-display] .window-bangumis-box .ae-scroll-button:disabled {
+  color: var(--ae-muted);
+  opacity: .45;
+  cursor: default;
+}
+
+html[data-ae-display] .window-bangumis-box .ae-scroll-button:focus-visible {
+  outline: 3px solid #2479c9;
+  outline-offset: 1px;
+}
+
+html[data-ae-display] .window-bangumis-box .window-bangumi-list {
+  max-width: var(--ae-available-width, calc(100vw - 364px));
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  padding: 3px 2px 4px;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+html[data-ae-display] .window-bangumis-box .window-bangumi-item {
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+html[data-ae-display] .window-bangumis-box .window-bangumi-item .cover {
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+html[data-ae-display="labels"] .window-bangumis-box .window-bangumi-list {
+  gap: 8px;
+}
+
+html[data-ae-display="labels"] .window-bangumis-box .ae-item:not([hidden]) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  max-width: min(290px, 100%);
+  min-width: 0;
+  height: 44px;
+  padding: 4px 10px 4px 5px;
+  border: 1px solid var(--ae-border);
+  border-radius: 9px;
+  box-sizing: border-box;
+  background: var(--ae-bg);
+  color: var(--ae-text);
+  font: 500 13px/17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-shadow: 0 2px 6px #12243a12;
+}
+
+html[data-ae-display="labels"] .window-bangumis-box .ae-item .cover {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px var(--bangumi-color, #8995a4);
+}
+
+html[data-ae-display="labels"] .window-bangumis-box .ae-item .ae-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  max-width: 180px;
+}
+
+html[data-ae-display="labels"] .window-bangumis-box .ae-item .ae-count {
+  display: block;
+  flex: 0 0 auto;
+  min-width: 22px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background: var(--ae-count-bg);
+  color: var(--ae-muted);
+  text-align: center;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+html[data-ae-display="labels"] .window-bangumis-box .ae-item::after {
+  display: none;
+}
+
+html[data-ae-display="labels"] .window-bangumis-box .ae-item[data-selected="true"] {
+  border-color: var(--bangumi-color, #3478c2);
+  box-shadow: 0 0 0 1px var(--bangumi-color, #3478c2);
+}
+
+html[data-ae-display] .window-bangumis-box .ae-item:focus-visible {
+  outline: 3px solid #2479c9;
+  outline-offset: 1px;
+}
+
+html[data-ae-display] .window-bangumis-box[data-ae-layout="left"] {
+  left: 10px !important;
+  top: var(--ae-sidebar-top) !important;
+  right: auto;
+  bottom: auto;
+  width: var(--ae-available-width);
+  height: auto;
+  max-height: var(--ae-available-height);
+  padding: 0;
+  margin: 0;
+}
+
+html[data-ae-display] .window-bangumis-box[data-ae-layout="left"] .ae-scroller {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+html[data-ae-display] .window-bangumis-box[data-ae-layout="left"] .window-bangumi-list {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  max-height: var(--ae-available-height);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 3px 18px 4px 3px;
+}
+
+html[data-ae-display] .window-bangumis-box[data-ae-layout="left"] .window-bangumi-list[data-ae-fade="true"] {
+  --ae-edge-mask: linear-gradient(to bottom, transparent, #000 var(--ae-fade-top), #000 calc(100% - var(--ae-fade-bottom)), transparent);
+  /* Fade into the map itself. The second layer keeps the native scrollbar
+     opaque in the reserved 18px strip on the right. */
+  -webkit-mask-image: var(--ae-edge-mask), linear-gradient(#000, #000);
+  -webkit-mask-size: calc(100% - 18px) 100%, 18px 100%;
+  -webkit-mask-position: left top, right top;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: var(--ae-edge-mask), linear-gradient(#000, #000);
+  mask-size: calc(100% - 18px) 100%, 18px 100%;
+  mask-position: left top, right top;
+  mask-repeat: no-repeat;
+}
+
+html[data-ae-display="labels"] .window-bangumis-box[data-ae-layout="left"] .ae-item:not([hidden]) {
+  width: 100%;
+  max-width: 100%;
+}
+
+html[data-ae-display="labels"] .window-bangumis-box[data-ae-layout="left"] .ae-name {
+  flex: 1;
+  max-width: none;
+}
+
+html[data-ae-display="compact"] .window-bangumis-box[data-ae-layout="left"] .window-bangumi-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 44px);
+  gap: 8px;
+  align-content: start;
+}
+
+@media (max-width: 800px) {
+  html[data-ae-display] .window-bangumis-box .ae-scroller {
+    max-width: var(--ae-available-width, calc(100vw - 24px));
+  }
+
+  html[data-ae-display] .window-bangumis-box .window-bangumi-list {
+    max-width: var(--ae-available-width, calc(100vw - 24px));
+  }
+}

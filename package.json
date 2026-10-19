@@ -1,0 +1,30 @@
+{
+  "name": "anitabi-enhancer",
+  "version": "0.7.1",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "Async23",
+  "homepage": "https://github.com/Async23/anitabi-enhancer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Async23/anitabi-enhancer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Async23/anitabi-enhancer/issues"
+  },
+  "description": "Anitabi 动画巡礼地图的 Chrome 体验增强扩展",
+  "scripts": {
+    "icons": "node scripts/generate-icons.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "playwright test",
+    "test:live": "node scripts/live-check.mjs",
+    "test:live:works": "node scripts/work-list-live-check.mjs",
+    "test:live:settings": "node scripts/page-settings-live-check.mjs",
+    "store:screenshots": "node scripts/store-screenshots.mjs",
+    "build": "node scripts/package.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1"
+  }
+}

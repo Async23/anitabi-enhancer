@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "Anitabi 增强",
+  "version": "0.7.1",
+  "homepage_url": "https://github.com/Async23/anitabi-enhancer",
+  "minimum_chrome_version": "111",
+  "description": "为动画巡礼地图显示作品名称，在地图内快捷调整展示、手动控制作品列表、圆点、头像、名称和地点缩略图。非官方扩展。",
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["https://anitabi.cn/*", "https://www.anitabi.cn/*", "https://w.anitabi.cn/*", "https://hk.anitabi.cn/*"],
+  "background": { "service_worker": "background.js" },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "20": "icons/icon-20.png",
+      "24": "icons/icon-24.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "64": "icons/icon-64.png"
+    },
+    "default_title": "作品设置"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://anitabi.cn/*", "https://www.anitabi.cn/*", "https://w.anitabi.cn/*", "https://hk.anitabi.cn/*"],
+      "js": ["settings.js"],
+      "css": ["content.css"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://anitabi.cn/*", "https://www.anitabi.cn/*", "https://w.anitabi.cn/*", "https://hk.anitabi.cn/*"],
+      "js": ["region.js", "content.js", "map-dots.js", "map-symbols.js"],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://anitabi.cn/*", "https://www.anitabi.cn/*", "https://w.anitabi.cn/*", "https://hk.anitabi.cn/*"],
+      "js": ["page-settings.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

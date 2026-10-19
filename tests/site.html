@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { margin:0; background:#eaf0f2; font-family:system-ui; }
+    .search { position:fixed; top:10px; left:10px; width:310px; height:38px; background:white; }
+    .func-change-logs-fixed { position:fixed; right:10px; top:10px; width:320px; height:160px; background:white; }
+    .window-bangumis-box { position:fixed; top:8px; left:340px; pointer-events:none; }
+    .window-bangumi-list { display:flex; gap:2px; }
+    .window-bangumi-item { cursor:pointer; border-radius:50%; pointer-events:auto; width:40px; height:40px; padding:2px; position:relative; background:var(--bangumi-color); }
+    .window-bangumi-item .cover { width:40px; height:40px; border-radius:50%; }
+    .window-bangumi-item:after { content:attr(data-num); position:absolute; right:0; bottom:0; background:var(--bangumi-color); color:white; font-size:12px; }
+    .window-bangumis-box[data-has-selection=true] .window-bangumi-item[data-selected=false] { opacity:.4; }
+    .window-bangumi-item[hidden] { display:none; }
+    .window-points-box { position:fixed; left:10px; top:62px; width:310px; height:74px; background:#d8e4e6; }
+    .mapboxgl-ctrl-bottom-left { position:fixed; left:0; bottom:0; width:56px; height:56px; }
+    .mapboxgl-ctrl-bottom-right { position:fixed; right:10px; bottom:16px; display:grid; gap:8px; }
+    .mapboxgl-ctrl-group { width:32px; height:32px; background:white; }
+    .mapboxgl-ctrl-group-zoom { height:96px; }
+    @media(max-width:800px) {
+      .window-bangumis-box { left:10px; top:54px; }
+      .func-change-logs-fixed { top:60px; }
+      .window-points-box { top:116px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="search side-search-form">城市、作品、地标</div>
+  <div class="func-change-logs-fixed">地图公告</div>
+  <div class="window-bangumis-box" data-has-selection="false">
+    <div class="window-bangumi-list"></div>
+  </div>
+  <div class="window-points-box">地标缩略图</div>
+  <div class="mapboxgl-ctrl-bottom-left"></div>
+  <div class="mapboxgl-ctrl-bottom-right"><div class="mapboxgl-ctrl-group"></div><div class="mapboxgl-ctrl-group"></div><div class="mapboxgl-ctrl-group mapboxgl-ctrl-group-zoom"></div></div>
+  <script>
+    window.mapApp = {
+      BangumiIds: {
+        221127: {id:221127,cn:'黄金神威',title:'ゴールデンカムイ',color:'#cc7900',icon:'/images/icon/221127.jpg'},
+        406119: {id:406119,cn:'北海道辣妹贼拉可爱',title:'道産子ギャルはなまらめんこい',color:'#ea508e',icon:'/images/icon/406119.jpg'},
+      },
+      selectedBangumiIds: new Set(),
+    };
+    window.originalClicks = [];
+    window.addWork = (id, count) => {
+      const work = window.mapApp.BangumiIds[id];
+      const item = document.createElement('div');
+      item.className = 'window-bangumi-item';
+      item.dataset.num = String(count);
+      item.dataset.selected = 'false';
+      item.style.setProperty('--bangumi-color', work.color);
+      const image = document.createElement('img');
+      image.className = 'ui-image cover';
+      image.src = 'https://img-tc.anitabi.cn/icon/' + id + '.jpg';
+      item.append(image);
+      item.onclick = () => {
+        originalClicks.push(id);
+        const selected = mapApp.selectedBangumiIds;
+        selected.has(id) ? selected.delete(id) : selected.add(id);
+        item.dataset.selected = String(selected.has(id));
+        item.closest('.window-bangumis-box').dataset.hasSelection = String(selected.size > 0);
+      };
+      document.querySelector('.window-bangumi-list').append(item);
+      return item;
+    };
+    addWork(221127, 5);
+    addWork(406119, 2);
+  </script>
+</body>
+</html>
