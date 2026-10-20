@@ -18,6 +18,9 @@
 
 ## 详细说明
 
+本扩展已开源，欢迎反馈问题和参与改进。
+GitHub 源码：https://github.com/Async23/anitabi-enhancer
+
 浏览 Anitabi 动画巡礼地图时，直接看清作品名称，并按需要调整地图上的信息。
 
 主要功能：
